@@ -1,4 +1,4 @@
-package sample;
+package snakeGame;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Group;

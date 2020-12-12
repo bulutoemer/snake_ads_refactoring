@@ -1,4 +1,4 @@
-package sample;
+package snakeGame;
 
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
