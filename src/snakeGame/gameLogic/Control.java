@@ -10,6 +10,7 @@ import snakeGame.userInterface.Snake;
 
 public class Control {
 
+    private final GameFlowService gameFlowService = GameFlowService.getInstance();
     private boolean goUp, goDown, goRight, goLeft;
 
     public void stopMovement() {
@@ -75,7 +76,8 @@ public class Control {
                 goRight = false;
                 break;
             case R:
-                snake.respawn(group, food, scoreLabel, stage, this);
+                gameFlowService.respawn(snake, group, food, scoreLabel, stage, this);
+//                snake.respawn(group, food, scoreLabel, stage, this);
                 GameLoop.stopGameovermusic();
                 GameLoop.restartIngamemusic();
                 break;

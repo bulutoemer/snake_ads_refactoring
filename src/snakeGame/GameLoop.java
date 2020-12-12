@@ -17,11 +17,13 @@ import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.util.Duration;
 import snakeGame.gameLogic.Control;
+import snakeGame.gameLogic.GameFlowService;
 import snakeGame.userInterface.*;
 
 import java.io.File;
 
 public class GameLoop extends Application {
+    private final GameFlowService gameFlowService = GameFlowService.getInstance();
 
     private static final String MEDIA_DIRECTORY = "src/snakeGame/userInterface/media/";
     private static final String IMAGE_DIRECTORY = "snakeGame/userInterface/media/";
@@ -156,8 +158,7 @@ public class GameLoop extends Application {
             @Override
             public void handle(long now) {
 
-                if (now - lastUpdate >= snake.getframeDelay()) {
-
+                if (now - lastUpdate >= gameFlowService.getFrameDelay()) {
                     int dx = 0, dy = 0;
 
                     snake.collision(food, root, food.getBound(), scoreLabel, control, primaryStage, gameboard);
