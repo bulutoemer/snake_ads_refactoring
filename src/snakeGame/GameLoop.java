@@ -109,7 +109,7 @@ public class GameLoop extends Application {
         Control control = new Control();
         Snake snake = new Snake(root, primaryStage); //erstellt neues Snake Listen Objekt und getChilded es
         Food food = new Food();
-        Score score = new Score(root);
+        ScoreLabel scoreLabel = new ScoreLabel(root);
         food.setFood(root, primaryStage);//setzt ein neues Food random ab
         Scene scene = new Scene(backgroundPane, primaryStage.getWidth(), primaryStage.getHeight(), Color.DARKGREEN);
         backgroundPane.getChildren().add(root); //TODO NEU Background - root (Group) zu backgroundPane als Child added
@@ -146,7 +146,7 @@ public class GameLoop extends Application {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {//Keyeventhandler fragt ab obs ein Keyevent gibt
             @Override
             public void handle(KeyEvent keyEvent) {
-                control.keyHandler(keyEvent, snake, root, food, score, primaryStage);//control nimmt Keyevent und schaut speziell nach WASD
+                control.keyHandler(keyEvent, snake, root, food, scoreLabel, primaryStage);//control nimmt Keyevent und schaut speziell nach WASD
 
             }
         });
@@ -160,7 +160,7 @@ public class GameLoop extends Application {
 
                     int dx = 0, dy = 0;
 
-                    snake.collision(food, root, food.getBound(), score, control, primaryStage, gameboard);
+                    snake.collision(food, root, food.getBound(), scoreLabel, control, primaryStage, gameboard);
 
                     if (control.getgoUp()) dy += -offset; //offset="speed"
                     else if (control.getgoDown()) dy += offset;
