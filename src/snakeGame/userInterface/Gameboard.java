@@ -1,4 +1,4 @@
-package snakeGame;
+package snakeGame.userInterface;
 
 
 import javafx.scene.Group;
@@ -61,7 +61,6 @@ public class Gameboard {
         group.getChildren().clear();
         deathTouchTail.relocate(200, stage.getHeight()/2-200);
         group.getChildren().add(deathTouchTail);
-
     }
 
 }

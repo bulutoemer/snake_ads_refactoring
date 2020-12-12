@@ -16,25 +16,29 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.util.Duration;
+import snakeGame.gameLogic.Control;
+import snakeGame.userInterface.*;
 
 import java.io.File;
 
 public class GameLoop extends Application {
 
-    static File splashFile = new File("src/media/splash.mp4");
+    private static final String MEDIA_DIRECTORY = "src/snakeGame/userInterface/media/";
+    private static final String IMAGE_DIRECTORY = "snakeGame/userInterface/media/";
+    static File splashFile = new File(MEDIA_DIRECTORY + "splash.mp4");
     static Media splashMedia = new Media(splashFile.toURI().toString());
     static MediaPlayer splashPlayer = new MediaPlayer(splashMedia);
     static MediaView splashView = new MediaView(splashPlayer);
-    static File ingamemusicFile = new File("src/media/sound/music/ingame2.mp3");
+    static File ingamemusicFile = new File(MEDIA_DIRECTORY + "sound/music/ingame2.mp3");
     static Media ingamemusicMedia = new Media(ingamemusicFile.toURI().toString());
     static MediaPlayer ingamemusicPlayer = new MediaPlayer(ingamemusicMedia);
-    static File gameovermusicFile = new File("src/media/sound/music/gameover1.mp3");
+    static File gameovermusicFile = new File(MEDIA_DIRECTORY + "sound/music/gameover1.mp3");
     static Media gameovermusicMedia = new Media(gameovermusicFile.toURI().toString());
     static MediaPlayer gameovermusicPlayer = new MediaPlayer(gameovermusicMedia);
-    static File eatsoundFile = new File("src/media/sound/eat2.mp3");
+    static File eatsoundFile = new File(MEDIA_DIRECTORY + "sound/eat2.mp3");
     static Media eatsoundMedia = new Media(eatsoundFile.toURI().toString());
     static MediaPlayer eatsoundPlayer = new MediaPlayer(eatsoundMedia);
-    static File deathsoundFile = new File("src/media/sound/death1.mp3");
+    static File deathsoundFile = new File(MEDIA_DIRECTORY + "sound/death1.mp3");
     static Media deathsoundMedia = new Media(deathsoundFile.toURI().toString());
     static MediaPlayer deathsoundPlayer = new MediaPlayer(deathsoundMedia);
     Group root = new Group();
@@ -92,7 +96,7 @@ public class GameLoop extends Application {
         primaryStage.setMinWidth(50);
 
         //TODO NEU - Background stuff
-        imgSource = new Image("media/grassTile.png");
+        imgSource = new Image(IMAGE_DIRECTORY + "grassTile.png");
         backgroundImage = new BackgroundImage(imgSource, BackgroundRepeat.REPEAT.REPEAT, BackgroundRepeat.REPEAT.REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         backgroundView = new Background(backgroundImage);
@@ -104,7 +108,7 @@ public class GameLoop extends Application {
         Gameboard gameboard = new Gameboard(); // TODO NEW
         Control control = new Control();
         Snake snake = new Snake(root, primaryStage); //erstellt neues Snake Listen Objekt und getChilded es
-        GameObject food = new GameObject();
+        Food food = new Food();
         Score score = new Score(root);
         food.setFood(root, primaryStage);//setzt ein neues Food random ab
         Scene scene = new Scene(backgroundPane, primaryStage.getWidth(), primaryStage.getHeight(), Color.DARKGREEN);

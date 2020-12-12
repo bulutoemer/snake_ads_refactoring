@@ -1,8 +1,12 @@
-package snakeGame;
+package snakeGame.gameLogic;
 
 import javafx.scene.Group;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import snakeGame.GameLoop;
+import snakeGame.userInterface.Food;
+import snakeGame.userInterface.Score;
+import snakeGame.userInterface.Snake;
 
 public class Control {
 
@@ -33,7 +37,7 @@ public class Control {
     }
 
 
-    public void keyHandler(KeyEvent keyEvent, Snake snake, Group group, GameObject food, Score score, Stage stage) {
+    public void keyHandler(KeyEvent keyEvent, Snake snake, Group group, Food food, Score score, Stage stage) {
 
         switch (keyEvent.getCode()) {
             case W:

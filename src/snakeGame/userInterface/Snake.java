@@ -1,10 +1,12 @@
-package snakeGame;
+package snakeGame.userInterface;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import snakeGame.GameLoop;
+import snakeGame.gameLogic.Control;
 
 import java.util.LinkedList;
 
@@ -28,7 +30,7 @@ public class Snake {
     }
 
 
-    public void respawn(Group group, GameObject food, Score score, Stage stage, Control control) {
+    public void respawn(Group group, Food food, Score score, Stage stage, Control control) {
         group.getChildren().clear();
         snake.clear();
 
@@ -43,7 +45,7 @@ public class Snake {
 
     }
 
-    public void snakeDead(Group group, GameObject food, Score score, Control control, Stage stage) {
+    public void snakeDead(Group group, Food food, Score score, Control control, Stage stage) {
         //Last Minute - wird gebraucht um Score nicht zu früh zu löschen (überlegung nur respawn zu verwenden mit dieser implementierung fehlgeschlagen)
 
         group.getChildren().clear();
@@ -56,7 +58,7 @@ public class Snake {
     }
 
 
-    public void eat(Group group, Score score, GameObject food) {//added ein tail rectangle, übernimmt color von food,erhöht score um 1, macht schneller
+    public void eat(Group group, Score score, Food food) {//added ein tail rectangle, übernimmt color von food,erhöht score um 1, macht schneller
         snake.add(new Rectangle(20, 20));
         snake.getLast().setFill(Color.color(food.getColor()[0], food.getColor()[1], food.getColor()[2])); //holt sich aus deathsoundMedia GameObject die Color von Food für sein Tail
         group.getChildren().add(snake.getLast()); //bringt den tail auf die Szene
@@ -68,7 +70,7 @@ public class Snake {
 
     }
 
-    public void collision(GameObject food, Group group, Bounds foodBound, Score score, Control control, Stage stage, Gameboard gameboard) { //gameobject sind obstacles so wie Food, Boundarys für Collisions
+    public void collision(Food food, Group group, Bounds foodBound, Score score, Control control, Stage stage, Gameboard gameboard) { //gameobject sind obstacles so wie Food, Boundarys für Collisions
         Bounds headBox = head.getBoundsInParent(); // erstellt eine Boundary um den Snakekopf
 
 
