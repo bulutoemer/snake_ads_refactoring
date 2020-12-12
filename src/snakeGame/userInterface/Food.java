@@ -1,4 +1,4 @@
-package sample;
+package snakeGame.userInterface;
 
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -9,13 +9,13 @@ import javafx.stage.Stage;
 import java.util.Random;
 
 
-public class GameObject {
+public class Food {
     public Rectangle food = new Rectangle(20, 20); //public um X/Y Koordinaten zu bekommen
     private Random rand;
     private double redPart, greenPart, bluePart;
     private Bounds fbound;
 
-    public GameObject() {
+    public Food() {
 
     }
 
