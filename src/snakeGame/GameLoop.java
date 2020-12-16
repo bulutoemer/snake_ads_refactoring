@@ -29,7 +29,7 @@ public class GameLoop extends Application {
     static MediaPlayer gameovermusicPlayer = new MediaPlayer(MediaFields.gameovermusicMedia);
     static MediaPlayer eatsoundPlayer = new MediaPlayer(MediaFields.eatsoundMedia);
     static MediaPlayer deathsoundPlayer = new MediaPlayer(MediaFields.deathsoundMedia);
-    Group root = new Group();
+    Group rootGroup = new Group();
     Pane backgroundPane = new Pane(); //TODO NEU für Background
     Group splashscreen = new Group();
     //TODO NEU - Background stuff
@@ -76,65 +76,45 @@ public class GameLoop extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         AnimationTimer timer;
-
-        primaryStage.setWidth(1500);
-        primaryStage.setHeight(700);
-
-        primaryStage.setMinHeight(50);
-        primaryStage.setMinWidth(50);
-
-        //TODO NEU - Background stuff
-        imgSource = new Image(MediaFields.grasTilePath);
-        backgroundImage = new BackgroundImage(imgSource, BackgroundRepeat.REPEAT.REPEAT, BackgroundRepeat.REPEAT.REPEAT,
-                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-        backgroundView = new Background(backgroundImage);
-        backgroundPane.setBackground(backgroundView);
-        //TODO END Background
-
-
-        int offset = 21; //TODO Variable Namen anpassen
-        Gameboard gameboard = new Gameboard(); // TODO NEW
-        Control control = new Control();
-        Snake snake = new Snake(root, primaryStage); //erstellt neues Snake Listen Objekt und getChilded es
+        int offset = 21;
         Food food = new Food();
-        ScoreLabel scoreLabel = new ScoreLabel(root);
-        food.setFood(root, primaryStage);//setzt ein neues Food random ab
-        Scene scene = new Scene(backgroundPane, primaryStage.getWidth(), primaryStage.getHeight(), Color.DARKGREEN);
-        backgroundPane.getChildren().add(root); //TODO NEU Background - root (Group) zu backgroundPane als Child added
+        Gameboard gameboard = new Gameboard();
+        Control control = new Control();
+        Snake snake = new Snake(rootGroup, primaryStage); //erstellt neues Snake Listen Objekt und getChilded es
+        ScoreLabel scoreLabel = new ScoreLabel(rootGroup);
+        Scene scene;
+        Rectangle blackRectangle;
+        FadeTransition fadeBlackToTransparent;
+        Scene intro;
 
-        Rectangle blackrect = new Rectangle();  //Schwarzer Block der für eine Szenentransition missbraucht wird
-        blackrect.setFill(Color.BLACK);
-        blackrect.setHeight(primaryStage.getHeight());
-        blackrect.setWidth(primaryStage.getWidth());
-        FadeTransition fadeblacktotransparent = new FadeTransition(Duration.millis(700), blackrect);
-        fadeblacktotransparent.setFromValue(1.0);
-        fadeblacktotransparent.setToValue(0.0);
-        root.getChildren().add(blackrect);
+        setPrimaryStageProperties(primaryStage);
+        setBackground();
 
-        Scene intro = new Scene(splashscreen, primaryStage.getWidth(), primaryStage.getHeight());
+        food.setFood(rootGroup, primaryStage);//setzt ein neues Food random ab
+        scene = new Scene(backgroundPane, primaryStage.getWidth(), primaryStage.getHeight(), Color.DARKGREEN);
+        backgroundPane.getChildren().add(rootGroup);
+
+        blackRectangle = getNewBlackRectangle(primaryStage.getWidth(),primaryStage.getHeight());
+        fadeBlackToTransparent = new FadeTransition(Duration.millis(700), blackRectangle);
+        fadeBlackToTransparent.setFromValue(1.0);
+        fadeBlackToTransparent.setToValue(0.0);
+        rootGroup.getChildren().add(blackRectangle);
+
+        intro = new Scene(splashscreen, primaryStage.getWidth(), primaryStage.getHeight());
         splashscreen.getChildren().add(splashView);
-        splashView.setFitHeight(500);
-        splashView.setFitWidth(1000);
+        setSplashViewProperties();
         intro.setFill(Color.BLACK);
-        splashView.setX(400);
-        splashView.setY(100);
+
         primaryStage.setScene(intro);
-        primaryStage.setTitle(MediaFields.TITLE);
         primaryStage.show();
         splashPlayer.play();
 
         ingamemusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        /*inp.setOnEndOfMedia(new Runnable() {
-            @Override
-            public void run() {
-                inp.seek(Duration.ZERO);
-            }
-        });
-        */
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {//Keyeventhandler fragt ab obs ein Keyevent gibt
             @Override
             public void handle(KeyEvent keyEvent) {
-                control.keyHandler(keyEvent, snake, root, food, scoreLabel, primaryStage);//control nimmt Keyevent und schaut speziell nach WASD
+                control.keyHandler(keyEvent, snake, rootGroup, food, scoreLabel, primaryStage);//control nimmt Keyevent und schaut speziell nach WASD
 
             }
         });
@@ -147,7 +127,7 @@ public class GameLoop extends Application {
                 if (now - lastUpdate >= gameFlowService.getFrameDelay()) {
                     int dx = 0, dy = 0;
 
-                    snake.collision(food, root, food.getBound(), scoreLabel, control, primaryStage, gameboard);
+                    snake.collision(food, rootGroup, food.getBound(), scoreLabel, control, primaryStage, gameboard);
 
                     if (control.getgoUp()) dy += -offset; //offset="speed"
                     else if (control.getgoDown()) dy += offset;
@@ -164,7 +144,7 @@ public class GameLoop extends Application {
             @Override
             public void run() {
                 primaryStage.setScene(scene);
-                fadeblacktotransparent.play();
+                fadeBlackToTransparent.play();
                 timer.start(); //Animationtimer startet nun erst nach dem Fade out des Hundevideos
                 restartIngamemusic();
             }
@@ -172,5 +152,32 @@ public class GameLoop extends Application {
 
     }
 
+    private void setSplashViewProperties() {
+        splashView.setFitHeight(500);
+        splashView.setFitWidth(1000);
+        splashView.setX(400);
+        splashView.setY(100);
+    }
+
+    private void setBackground() {
+        imgSource = new Image(MediaFields.grasTilePath);
+        backgroundImage = new BackgroundImage(imgSource, BackgroundRepeat.REPEAT.REPEAT, BackgroundRepeat.REPEAT.REPEAT,
+                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        backgroundView = new Background(backgroundImage);
+        backgroundPane.setBackground(backgroundView);
+    }
+
+    private void setPrimaryStageProperties(Stage primaryStage) {
+        primaryStage.setWidth(1500);
+        primaryStage.setHeight(700);
+
+        primaryStage.setMinHeight(50);
+        primaryStage.setMinWidth(50);
+        primaryStage.setTitle(MediaFields.TITLE);
+    }
+
+    private Rectangle getNewBlackRectangle( double width, double height) {
+        return new Rectangle(width,height,Color.BLACK);
+    }
 
 }
