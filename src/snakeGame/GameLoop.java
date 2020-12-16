@@ -14,35 +14,21 @@ import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.scene.media.Media;
 import javafx.util.Duration;
 import snakeGame.gameLogic.Control;
 import snakeGame.gameLogic.GameFlowService;
+import snakeGame.strings.MediaFields;
 import snakeGame.userInterface.*;
-
-import java.io.File;
 
 public class GameLoop extends Application {
     private final GameFlowService gameFlowService = GameFlowService.getInstance();
 
-    private static final String MEDIA_DIRECTORY = "src/snakeGame/userInterface/media/";
-    private static final String IMAGE_DIRECTORY = "snakeGame/userInterface/media/";
-    static File splashFile = new File(MEDIA_DIRECTORY + "splash.mp4");
-    static Media splashMedia = new Media(splashFile.toURI().toString());
-    static MediaPlayer splashPlayer = new MediaPlayer(splashMedia);
+    static MediaPlayer splashPlayer = new MediaPlayer(MediaFields.splashMedia);
     static MediaView splashView = new MediaView(splashPlayer);
-    static File ingamemusicFile = new File(MEDIA_DIRECTORY + "sound/music/ingame2.mp3");
-    static Media ingamemusicMedia = new Media(ingamemusicFile.toURI().toString());
-    static MediaPlayer ingamemusicPlayer = new MediaPlayer(ingamemusicMedia);
-    static File gameovermusicFile = new File(MEDIA_DIRECTORY + "sound/music/gameover1.mp3");
-    static Media gameovermusicMedia = new Media(gameovermusicFile.toURI().toString());
-    static MediaPlayer gameovermusicPlayer = new MediaPlayer(gameovermusicMedia);
-    static File eatsoundFile = new File(MEDIA_DIRECTORY + "sound/eat2.mp3");
-    static Media eatsoundMedia = new Media(eatsoundFile.toURI().toString());
-    static MediaPlayer eatsoundPlayer = new MediaPlayer(eatsoundMedia);
-    static File deathsoundFile = new File(MEDIA_DIRECTORY + "sound/death1.mp3");
-    static Media deathsoundMedia = new Media(deathsoundFile.toURI().toString());
-    static MediaPlayer deathsoundPlayer = new MediaPlayer(deathsoundMedia);
+    static MediaPlayer ingamemusicPlayer = new MediaPlayer(MediaFields.ingamemusicMedia);
+    static MediaPlayer gameovermusicPlayer = new MediaPlayer(MediaFields.gameovermusicMedia);
+    static MediaPlayer eatsoundPlayer = new MediaPlayer(MediaFields.eatsoundMedia);
+    static MediaPlayer deathsoundPlayer = new MediaPlayer(MediaFields.deathsoundMedia);
     Group root = new Group();
     Pane backgroundPane = new Pane(); //TODO NEU für Background
     Group splashscreen = new Group();
@@ -98,7 +84,7 @@ public class GameLoop extends Application {
         primaryStage.setMinWidth(50);
 
         //TODO NEU - Background stuff
-        imgSource = new Image(IMAGE_DIRECTORY + "grassTile.png");
+        imgSource = new Image(MediaFields.grasTilePath);
         backgroundImage = new BackgroundImage(imgSource, BackgroundRepeat.REPEAT.REPEAT, BackgroundRepeat.REPEAT.REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         backgroundView = new Background(backgroundImage);
@@ -133,7 +119,7 @@ public class GameLoop extends Application {
         splashView.setX(400);
         splashView.setY(100);
         primaryStage.setScene(intro);
-        primaryStage.setTitle("Rainbow Snake");
+        primaryStage.setTitle(MediaFields.TITLE);
         primaryStage.show();
         splashPlayer.play();
 
