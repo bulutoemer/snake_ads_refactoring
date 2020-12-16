@@ -1,11 +1,11 @@
 # snake_ads_refactoring
 
-How to play?
-W - up
-A - left
-D - right
-S - down
-R - respawn
+How to play?  
+W - up  
+A - left  
+D - right  
+S - down  
+R - respawn  
 
 Solving the problems with JavaFx:
 1. Download the appropriate JavaFX SDK for your operating system and unzip it to a desired location
