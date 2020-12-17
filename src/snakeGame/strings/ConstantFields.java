@@ -14,4 +14,6 @@ public class ConstantFields {
     public static final int RECTANGLE_HEIGHT_WIDTH = 20;
     public static final int BORDER_WIDTH_BOUND = 30;
     public static final int BORDER_HEIGHT_BOUND = 54;
+    public static final int FONT_SIZE = 50;
+    public static final String FONT_NAME = "Arial";
 }

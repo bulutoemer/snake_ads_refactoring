@@ -4,13 +4,14 @@ import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 import snakeGame.gameLogic.ScoreService;
+import snakeGame.strings.ConstantFields;
 
 public class ScoreLabel {
     private final ScoreService scoreService = ScoreService.getInstance();
     Label score = new Label("Score: " + scoreService.getScoreValue());
 
     public ScoreLabel(Group group) {
-        score.setFont(new Font("Arial", 50));
+        score.setFont(new Font(ConstantFields.FONT_NAME, ConstantFields.FONT_SIZE));
         updateScoreText();
         group.getChildren().add(score);
 
@@ -18,7 +19,7 @@ public class ScoreLabel {
 
     public void scoreRespawn(Group group) {
         scoreService.setScoreValue(0);
-        score.setFont(new Font("Arial", 50));
+        score.setFont(new Font(ConstantFields.FONT_NAME, ConstantFields.FONT_SIZE));
         updateScoreText();
         group.getChildren().add(score);
 
