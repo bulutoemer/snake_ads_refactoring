@@ -5,12 +5,13 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import snakeGame.strings.ConstantFields;
 
 import java.util.Random;
 
 
 public class Food {
-    public Rectangle food = new Rectangle(20, 20); //public um X/Y Koordinaten zu bekommen
+    public Rectangle food = new Rectangle(ConstantFields.RECTANGLE_HEIGHT_WIDTH, ConstantFields.RECTANGLE_HEIGHT_WIDTH); //public um X/Y Koordinaten zu bekommen
     private Random rand;
     private double redPart, greenPart, bluePart;
     private Bounds fbound;
