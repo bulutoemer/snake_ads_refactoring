@@ -57,6 +57,7 @@ public class Snake {
 
         if (head.getLayoutX() <= 0 || head.getLayoutX() >= stage.getWidth() - 30 || // Überprüfung ob Head den Rand trifft
                 head.getLayoutY() <= 0 || head.getLayoutY() >= stage.getHeight() - 54) {
+            logger.log(Level.INFO, "You have died by colliding with the wall.");
             gameFlowService.die(this, group, control, stage);
             gameboard.setDeathTouchWall(score, group, stage);
             GameLoop.playDeathsound();
@@ -67,7 +68,7 @@ public class Snake {
 
         for (int i = 1; i < this.theSnake.size(); i++) { //Überprüfung Snake beisst sich in den oasch
             if (headBox.intersects(this.theSnake.get(i).getBoundsInParent())) {
-                logger.log(Level.INFO, "DEAD");
+                logger.log(Level.INFO, "You have died by colliding with yourself.");
                 gameFlowService.die(this, group, control, stage);
                 gameboard.setDeathTouchTail(score, group, stage);
                 GameLoop.playDeathsound();
