@@ -47,7 +47,7 @@ public class GameFlowService {
         snake.eat(food);
 
         group.getChildren().add(snake.snake.getLast()); //bringt den tail auf die Szene
-        scoreService.upScoreValue();
+        score.upScoreValue();
         if (frameDelay >= 8000000) { //maximale Grenze sonst wirds zu schnell
             frameDelay -= delayDecrease;
             System.out.println(frameDelay);
