@@ -11,4 +11,7 @@ public class ConstantFields {
     public static final int SPLASHVIEW_Y = 100;
     public static final int PRIMARYSTAGE_WIDTH = 1500;
     public static final int PRIMARYSTAGE_HEIGHT = 700;
+    public static final int RECTANGLE_HEIGHT_WIDTH = 20;
+    public static final int BORDER_WIDTH_BOUND = 30;
+    public static final int BORDER_HEIGHT_BOUND = 54;
 }

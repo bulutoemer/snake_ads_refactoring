@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import snakeGame.GameLoop;
 import snakeGame.gameLogic.Control;
 import snakeGame.gameLogic.GameFlowService;
+import snakeGame.strings.ConstantFields;
 
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
 
 public class Snake {
     private final GameFlowService gameFlowService = GameFlowService.getInstance();
-    private Rectangle head = new Rectangle(20, 20); // hier Initialisiert, weil in mehreren Methoden
+    private Rectangle head = new Rectangle(ConstantFields.RECTANGLE_HEIGHT_WIDTH, ConstantFields.RECTANGLE_HEIGHT_WIDTH); // hier Initialisiert, weil in mehreren Methoden
     public LinkedList<Rectangle> snake = new LinkedList<>(); //TODO handle this Snake.snake differently
     private static Logger logger = Logger.getLogger(Snake.class.getName());
 
@@ -41,7 +42,7 @@ public class Snake {
 
 
     public void eat(Food food) {//added ein tail rectangle, übernimmt color von food,erhöht score um 1, macht schneller
-        snake.add(new Rectangle(20, 20));
+        snake.add(new Rectangle(ConstantFields.RECTANGLE_HEIGHT_WIDTH, ConstantFields.RECTANGLE_HEIGHT_WIDTH));
         snake.getLast().setFill(Color.color(food.getColor()[0], food.getColor()[1], food.getColor()[2])); //holt sich aus deathsoundMedia GameObject die Color von Food für sein Tail
     }
 
@@ -55,8 +56,8 @@ public class Snake {
             GameLoop.playEatsound();
         }
 
-        if (head.getLayoutX() <= 0 || head.getLayoutX() >= stage.getWidth() - 30 || // Überprüfung ob Head den Rand trifft
-                head.getLayoutY() <= 0 || head.getLayoutY() >= stage.getHeight() - 54) {
+        if (head.getLayoutX() <= 0 || head.getLayoutX() >= stage.getWidth() - ConstantFields.BORDER_WIDTH_BOUND || // Überprüfung ob Head den Rand trifft
+                head.getLayoutY() <= 0 || head.getLayoutY() >= stage.getHeight() - ConstantFields.BORDER_HEIGHT_BOUND) {
             gameFlowService.die(this, group, control, stage);
             gameboard.setDeathTouchWall(score, group, stage);
             GameLoop.playDeathsound();
