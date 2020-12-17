@@ -11,4 +11,6 @@ public class ConstantFields {
     public static final int SPLASHVIEW_Y = 100;
     public static final int PRIMARYSTAGE_WIDTH = 1500;
     public static final int PRIMARYSTAGE_HEIGHT = 700;
+
+    private ConstantFields(){}
 }
