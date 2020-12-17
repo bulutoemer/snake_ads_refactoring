@@ -39,7 +39,7 @@ public class GameFlowService {
 
         snake.respawn(stage);
 
-        group.getChildren().add(snake.snake.getFirst());
+        group.getChildren().add(snake.theSnake.getFirst());
         food.setFood(group, stage); // setet neues random food und getchilded es
         scoreLabel.scoreRespawn(group); // respawn Mehtode für Score
         frameDelay = 25000000; // zurück zum Standardwert
@@ -50,7 +50,7 @@ public class GameFlowService {
     public void eat(Snake snake, Group group, ScoreLabel score, Food food) {
         snake.eat(food);
 
-        group.getChildren().add(snake.snake.getLast()); //bringt den tail auf die Szene
+        group.getChildren().add(snake.theSnake.getLast()); //bringt den tail auf die Szene
         score.upScoreValue();
         if (frameDelay >= 8000000) { //maximale Grenze sonst wirds zu schnell
             frameDelay -= delayDecrease;

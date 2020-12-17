@@ -20,4 +20,6 @@ public class MediaFields
     public static Media splashMedia = new Media(splashFile.toURI().toString());
     public static String grasTilePath = IMAGE_DIRECTORY + "grassTile.png";
     public static String TITLE = "Rainbow Snake";
+
+    private MediaFields(){}
 }
