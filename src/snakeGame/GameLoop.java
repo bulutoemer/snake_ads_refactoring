@@ -80,7 +80,6 @@ public class GameLoop extends Application {
         Food food = new Food();
         Gameboard gameboard = new Gameboard();
         Control control = new Control();
-        Snake snake = new Snake(rootGroup, primaryStage); //erstellt neues Snake Listen Objekt und getChilded es
         ScoreLabel scoreLabel = new ScoreLabel(rootGroup);
         Scene scene;
         Rectangle blackRectangle;
@@ -89,6 +88,7 @@ public class GameLoop extends Application {
 
         setPrimaryStageProperties(primaryStage);
         setBackground();
+        Snake snake = new Snake(rootGroup, primaryStage); //erstellt neues Snake Listen Objekt und getChilded es
 
         food.setFood(rootGroup, primaryStage);//setzt ein neues Food random ab
         scene = new Scene(backgroundPane, primaryStage.getWidth(), primaryStage.getHeight(), Color.DARKGREEN);
