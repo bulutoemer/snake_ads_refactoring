@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import snakeGame.GameLoop;
+import snakeGame.gameLogic.CollisionParameterList;
 import snakeGame.gameLogic.Control;
 import snakeGame.gameLogic.GameFlowService;
 import snakeGame.strings.ConstantFields;
@@ -46,36 +47,47 @@ public class Snake {
     }
 
     //TODO move collision into GameFlowService
-    public void collision(Food food, Group group, Bounds foodBound, ScoreLabel score, Control control, Stage stage, Gameboard gameboard) {
+    public void collision(CollisionParameterList parameterList) {
         Bounds headBox = head.getBoundsInParent();
 
-        if (headBox.intersects(foodBound)) {
-            gameFlowService.eat(this, group, score, food);
-            food.setFood(group, stage);
-            MusicService.playEatsound();
-        }
+        checkCollisionWithFood(parameterList, headBox);
 
-        if (head.getLayoutX() <= 0 || head.getLayoutX() >= stage.getWidth() - ConstantFields.BORDER_WIDTH_BOUND ||
-                head.getLayoutY() <= 0 || head.getLayoutY() >= stage.getHeight() - ConstantFields.BORDER_HEIGHT_BOUND) {
-            gameFlowService.die(this, group, control, stage);
-            gameboard.setDeathTouchWall(score, group, stage);
-            MusicService.playDeathsound();
-            MusicService.stopIngamemusic();
-            MusicService.restartGameovermusic();
-        }
+        checkCollisionWithBorder(parameterList);
 
+        checkCollisionWithSnake(parameterList, headBox);
+    }
 
+    private void checkCollisionWithSnake(CollisionParameterList parameterList, Bounds headBox) {
         for (int i = 1; i < this.theSnake.size(); i++) {
             if (headBox.intersects(this.theSnake.get(i).getBoundsInParent())) {
                 logger.log(Level.INFO, "DEAD");
-                gameFlowService.die(this, group, control, stage);
-                gameboard.setDeathTouchTail(score, group, stage);
+                gameFlowService.die(this, parameterList.getGroup(), parameterList.getControl(), parameterList.getStage());
+                parameterList.getGameboard().setDeathTouchTail(parameterList.getScore(), parameterList.getGroup(), parameterList.getStage());
                 MusicService.playDeathsound();
                 MusicService.stopIngamemusic();
                 MusicService.restartGameovermusic();
             }
 
 
+        }
+    }
+
+    private void checkCollisionWithBorder(CollisionParameterList parameterList) {
+        if (head.getLayoutX() <= 0 || head.getLayoutX() >= parameterList.getStage().getWidth() - ConstantFields.BORDER_WIDTH_BOUND ||
+                head.getLayoutY() <= 0 || head.getLayoutY() >= parameterList.getStage().getHeight() - ConstantFields.BORDER_HEIGHT_BOUND) {
+            gameFlowService.die(this, parameterList.getGroup(), parameterList.getControl(), parameterList.getStage());
+            parameterList.getGameboard().setDeathTouchWall(parameterList.getScore(), parameterList.getGroup(), parameterList.getStage());
+            MusicService.playDeathsound();
+            MusicService.stopIngamemusic();
+            MusicService.restartGameovermusic();
+        }
+    }
+
+    private void checkCollisionWithFood(CollisionParameterList parameterList, Bounds headBox) {
+        if (headBox.intersects(parameterList.getFoodBound())) {
+            gameFlowService.eat(this, parameterList.getGroup(), parameterList.getScore(), parameterList.getFood());
+            parameterList.getFood().setFood(parameterList.getGroup(), parameterList.getStage());
+            MusicService.playEatsound();
         }
     }
 

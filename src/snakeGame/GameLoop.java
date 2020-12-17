@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import snakeGame.gameLogic.CollisionParameterList;
 import snakeGame.gameLogic.Control;
 import snakeGame.gameLogic.GameFlowService;
 import snakeGame.strings.ConstantFields;
@@ -83,7 +84,7 @@ public class GameLoop extends Application {
                 if (now - lastUpdate >= gameFlowService.getFrameDelay()) {
                     int dx = 0, dy = 0;
 
-                    snake.collision(food, rootGroup, food.getBound(), scoreLabel, control, primaryStage, gameboard);
+                    snake.collision(new CollisionParameterList(food, rootGroup, food.getBound(), scoreLabel, control, primaryStage, gameboard));
 
                     if (control.getGoUp()) dy += -speedOffset;
                     else if (control.getGoDown()) dy += speedOffset;
