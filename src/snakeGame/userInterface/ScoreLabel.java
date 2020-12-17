@@ -11,7 +11,7 @@ public class ScoreLabel {
     Label score = new Label("Score: " + scoreService.getScoreValue());
 
     public ScoreLabel(Group group) {
-        score.setFont(new Font(ConstantFields.FONT_NAME, ConstantFields.FONT_SIZE));
+        score.setFont(new Font(ConstantFields.FONT_NAME_SCORELABEL, ConstantFields.FONT_SIZE_SCORELABEL));
         updateScoreText();
         group.getChildren().add(score);
 
@@ -19,7 +19,7 @@ public class ScoreLabel {
 
     public void scoreRespawn(Group group) {
         scoreService.setScoreValue(0);
-        score.setFont(new Font(ConstantFields.FONT_NAME, ConstantFields.FONT_SIZE));
+        score.setFont(new Font(ConstantFields.FONT_NAME_SCORELABEL, ConstantFields.FONT_SIZE_SCORELABEL));
         updateScoreText();
         group.getChildren().add(score);
 
