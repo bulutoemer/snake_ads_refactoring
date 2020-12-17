@@ -10,11 +10,14 @@ import snakeGame.gameLogic.Control;
 import snakeGame.gameLogic.GameFlowService;
 
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Snake {
     private final GameFlowService gameFlowService = GameFlowService.getInstance();
     private Rectangle head = new Rectangle(20, 20); // hier Initialisiert, weil in mehreren Methoden
     public LinkedList<Rectangle> snake = new LinkedList<>(); //TODO handle this Snake.snake differently
+    private static Logger logger = Logger.getLogger(Snake.class.getName());
 
     public Snake(Group group, Stage stage) {
         snake.add(head);
@@ -64,7 +67,7 @@ public class Snake {
 
         for (int i = 1; i < this.snake.size(); i++) { //Überprüfung Snake beisst sich in den oasch
             if (headBox.intersects(this.snake.get(i).getBoundsInParent())) {
-                System.out.println("DEAD");
+                logger.log(Level.INFO, "DEAD");
                 gameFlowService.die(this, group, control, stage);
                 gameboard.setDeathTouchTail(score, group, stage);
                 GameLoop.playDeathsound();
