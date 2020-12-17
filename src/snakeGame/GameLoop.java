@@ -26,10 +26,6 @@ public class GameLoop extends Application {
 
     static MediaPlayer splashPlayer = new MediaPlayer(MediaFields.splashMedia);
     static MediaView splashView = new MediaView(splashPlayer);
-    static MediaPlayer ingamemusicPlayer = new MediaPlayer(MediaFields.ingamemusicMedia);
-    static MediaPlayer gameovermusicPlayer = new MediaPlayer(MediaFields.gameovermusicMedia);
-    static MediaPlayer eatsoundPlayer = new MediaPlayer(MediaFields.eatsoundMedia);
-    static MediaPlayer deathsoundPlayer = new MediaPlayer(MediaFields.deathsoundMedia);
     Group rootGroup = new Group();
     Pane backgroundPane = new Pane();
     Group splashscreen = new Group();
@@ -39,39 +35,9 @@ public class GameLoop extends Application {
     Background backgroundView;
     private long lastUpdate = 0;
 
-    public static void restartIngamemusic() {
-        ingamemusicPlayer.seek(Duration.ZERO);
-        ingamemusicPlayer.play();
-    }
-
-    public static void stopIngamemusic() {
-        ingamemusicPlayer.stop();
-    }
-
-    public static void restartGameovermusic() {
-        gameovermusicPlayer.seek(Duration.ZERO);
-        gameovermusicPlayer.play();
-    }
-
-    public static void stopGameovermusic() {
-        gameovermusicPlayer.stop();
-    }
-
-    public static void playEatsound() {
-        eatsoundPlayer.seek(Duration.ZERO);
-        eatsoundPlayer.play();
-    }
-
-    public static void playDeathsound() {
-        deathsoundPlayer.seek(Duration.ZERO);
-        deathsoundPlayer.play();
-    }
-
     public static void main(String[] args) {
         launch(args);
-
     }
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -101,7 +67,7 @@ public class GameLoop extends Application {
         primaryStage.show();
         splashPlayer.play();
 
-        ingamemusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        MusicService.playIngameMusicIndefinitely();
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -136,7 +102,7 @@ public class GameLoop extends Application {
                 primaryStage.setScene(scene);
                 fadeBlackToTransparentTransition(primaryStage).play();
                 timer.start();
-                restartIngamemusic();
+                MusicService.restartIngamemusic();
             }
         });
     }

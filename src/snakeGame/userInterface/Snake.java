@@ -52,16 +52,16 @@ public class Snake {
         if (headBox.intersects(foodBound)) {
             gameFlowService.eat(this, group, score, food);
             food.setFood(group, stage);
-            GameLoop.playEatsound();
+            MusicService.playEatsound();
         }
 
         if (head.getLayoutX() <= 0 || head.getLayoutX() >= stage.getWidth() - ConstantFields.BORDER_WIDTH_BOUND ||
                 head.getLayoutY() <= 0 || head.getLayoutY() >= stage.getHeight() - ConstantFields.BORDER_HEIGHT_BOUND) {
             gameFlowService.die(this, group, control, stage);
             gameboard.setDeathTouchWall(score, group, stage);
-            GameLoop.playDeathsound();
-            GameLoop.stopIngamemusic();
-            GameLoop.restartGameovermusic();
+            MusicService.playDeathsound();
+            MusicService.stopIngamemusic();
+            MusicService.restartGameovermusic();
         }
 
 
@@ -70,9 +70,9 @@ public class Snake {
                 logger.log(Level.INFO, "DEAD");
                 gameFlowService.die(this, group, control, stage);
                 gameboard.setDeathTouchTail(score, group, stage);
-                GameLoop.playDeathsound();
-                GameLoop.stopIngamemusic();
-                GameLoop.restartGameovermusic();
+                MusicService.playDeathsound();
+                MusicService.stopIngamemusic();
+                MusicService.restartGameovermusic();
             }
 
 
