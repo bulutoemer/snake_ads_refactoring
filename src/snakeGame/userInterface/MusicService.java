@@ -23,35 +23,35 @@ public class MusicService {
         return MusicService.instance;
     }
 
-    public static void playIngameMusicIndefinitely() {
+    public void playIngameMusicIndefinitely() {
         ingamemusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
 
-    public static void restartIngamemusic() {
+    public void restartIngamemusic() {
         ingamemusicPlayer.seek(Duration.ZERO);
         ingamemusicPlayer.play();
     }
 
-    public static void stopIngamemusic() {
+    public void stopIngamemusic() {
         ingamemusicPlayer.stop();
     }
 
-    public static void restartGameovermusic() {
+    public void restartGameovermusic() {
         gameovermusicPlayer.seek(Duration.ZERO);
         gameovermusicPlayer.play();
     }
 
-    public static void stopGameovermusic() {
+    public void stopGameovermusic() {
         gameovermusicPlayer.stop();
     }
 
-    public static void playEatsound() {
+    public void playEatsound() {
         eatsoundPlayer.seek(Duration.ZERO);
         eatsoundPlayer.play();
     }
 
-    public static void playDeathsound() {
+    public void playDeathsound() {
         deathsoundPlayer.seek(Duration.ZERO);
         deathsoundPlayer.play();
     }

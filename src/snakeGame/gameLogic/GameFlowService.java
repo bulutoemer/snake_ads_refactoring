@@ -38,8 +38,8 @@ public class GameFlowService {
 
     public void restartGame(Snake snake,Group group,Food food,ScoreLabel scoreLabel,Stage stage,Control control) {
         respawn(snake, group, food, scoreLabel, stage, control);
-        MusicService.stopGameovermusic();
-        MusicService.restartIngamemusic();
+        MusicService.getInstance().stopGameovermusic();
+        MusicService.getInstance().restartIngamemusic();
     }
 
     public void respawn(Snake snake, Group group, Food food, ScoreLabel scoreLabel, Stage stage, Control control) {
