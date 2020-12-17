@@ -4,12 +4,16 @@ import javafx.scene.Group;
 import javafx.stage.Stage;
 import snakeGame.userInterface.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 //TODO find a way so that we don't have to pass all the parameters
 public class GameFlowService {
     private static GameFlowService instance;
     private final ScoreService scoreService = ScoreService.getInstance();
     private long frameDelay = 25000000; //25-30 mill. guter Startwert
     public long delayDecrease = 600000;  //von speedRefresh abziehen
+    private static Logger logger = Logger.getLogger(GameFlowService.class.getName());
 
 
     private GameFlowService () {
@@ -50,7 +54,7 @@ public class GameFlowService {
         score.upScoreValue();
         if (frameDelay >= 8000000) { //maximale Grenze sonst wirds zu schnell
             frameDelay -= delayDecrease;
-            System.out.println(frameDelay);
+            logger.log(Level.INFO, "The current frameDelay is: {0}", frameDelay);
         }
     }
 
