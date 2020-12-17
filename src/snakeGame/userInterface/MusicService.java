@@ -7,10 +7,10 @@ import snakeGame.strings.MediaFields;
 public class MusicService {
     private static MusicService instance;
 
-    static MediaPlayer ingamemusicPlayer = new MediaPlayer(MediaFields.ingamemusicMedia);
-    static MediaPlayer gameovermusicPlayer = new MediaPlayer(MediaFields.gameovermusicMedia);
-    static MediaPlayer eatsoundPlayer = new MediaPlayer(MediaFields.eatsoundMedia);
-    static MediaPlayer deathsoundPlayer = new MediaPlayer(MediaFields.deathsoundMedia);
+    static MediaPlayer ingamemusicPlayer = new MediaPlayer(MediaFields.getInstance().getInGameMusic());
+    static MediaPlayer gameovermusicPlayer = new MediaPlayer(MediaFields.getInstance().getGameoverSound());
+    static MediaPlayer eatsoundPlayer = new MediaPlayer(MediaFields.getInstance().getEatSound());
+    static MediaPlayer deathsoundPlayer = new MediaPlayer(MediaFields.getInstance().getDeathSound());
 
 
     private MusicService() {

@@ -25,7 +25,7 @@ import snakeGame.userInterface.*;
 public class GameLoop extends Application {
     private final GameFlowService gameFlowService = GameFlowService.getInstance();
 
-    static MediaPlayer splashPlayer = new MediaPlayer(MediaFields.splashMedia);
+    static MediaPlayer splashPlayer = new MediaPlayer(MediaFields.getInstance().getSplashMusic());
     static MediaView splashView = new MediaView(splashPlayer);
     Group rootGroup = new Group();
     Pane backgroundPane = new Pane();
@@ -127,7 +127,7 @@ public class GameLoop extends Application {
     }
 
     private void setBackground() {
-        imgSource = new Image(MediaFields.grasTilePath);
+        imgSource = MediaFields.getInstance().getGrasTileImage();
         backgroundImage = new BackgroundImage(imgSource, BackgroundRepeat.REPEAT.REPEAT, BackgroundRepeat.REPEAT.REPEAT,
                 BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         backgroundView = new Background(backgroundImage);
