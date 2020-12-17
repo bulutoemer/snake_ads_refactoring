@@ -82,8 +82,6 @@ public class GameLoop extends Application {
         Control control = new Control();
         ScoreLabel scoreLabel = new ScoreLabel(rootGroup);
         Scene scene;
-        Rectangle blackRectangle;
-        FadeTransition fadeBlackToTransparent;
         Scene intro;
 
         setPrimaryStageProperties(primaryStage);
@@ -93,12 +91,6 @@ public class GameLoop extends Application {
         food.setFood(rootGroup, primaryStage);
         scene = new Scene(backgroundPane, primaryStage.getWidth(), primaryStage.getHeight(), Color.DARKGREEN);
         backgroundPane.getChildren().add(rootGroup);
-
-        blackRectangle = getNewBlackRectangle(primaryStage.getWidth(),primaryStage.getHeight());
-        fadeBlackToTransparent = new FadeTransition(Duration.millis(ConstantFields.DURATION_MILLIS), blackRectangle);
-        fadeBlackToTransparent.setFromValue(ConstantFields.TRANSPARENT_FROM_VALUE);
-        fadeBlackToTransparent.setToValue(ConstantFields.TRANSPARENT_TO_VALUE);
-        rootGroup.getChildren().add(blackRectangle);
 
         intro = new Scene(splashscreen, primaryStage.getWidth(), primaryStage.getHeight());
         splashscreen.getChildren().add(splashView);
@@ -119,11 +111,9 @@ public class GameLoop extends Application {
             }
         });
 
-
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-
                 if (now - lastUpdate >= gameFlowService.getFrameDelay()) {
                     int dx = 0, dy = 0;
 
@@ -136,20 +126,30 @@ public class GameLoop extends Application {
                     snake.moveSnake(dx, dy);
 
                     lastUpdate = now;
-
                 }
             }
         };
+
         splashPlayer.setOnEndOfMedia(new Runnable() {
             @Override
             public void run() {
                 primaryStage.setScene(scene);
-                fadeBlackToTransparent.play();
+                fadeBlackToTransparentTransition(primaryStage).play();
                 timer.start();
                 restartIngamemusic();
             }
         });
+    }
 
+    private FadeTransition fadeBlackToTransparentTransition(Stage primaryStage) {
+        Rectangle blackRectangle = new Rectangle(primaryStage.getWidth(),primaryStage.getHeight(),Color.BLACK);
+        FadeTransition fadeBlackToTransparent = new FadeTransition(Duration.millis(ConstantFields.DURATION_MILLIS), blackRectangle);
+
+        fadeBlackToTransparent.setFromValue(ConstantFields.TRANSPARENT_FROM_VALUE);
+        fadeBlackToTransparent.setToValue(ConstantFields.TRANSPARENT_TO_VALUE);
+        rootGroup.getChildren().add(blackRectangle);
+
+        return fadeBlackToTransparent;
     }
 
     private void setSplashViewProperties() {
@@ -175,9 +175,4 @@ public class GameLoop extends Application {
         primaryStage.setMinWidth(ConstantFields.MIN_HEIGHT_WIDTH);
         primaryStage.setTitle(MediaFields.TITLE);
     }
-
-    private Rectangle getNewBlackRectangle( double width, double height) {
-        return new Rectangle(width,height,Color.BLACK);
-    }
-
 }
