@@ -133,7 +133,7 @@ public class GameLoop extends Application {
                     else if (control.getgoDown()) dy += offset;
                     else if (control.getgoRight()) dx += offset;
                     else if (control.getgoLeft()) dx += -offset;
-                    snake.moveSnake(dx, dy, primaryStage);
+                    snake.moveSnake(dx, dy);
 
                     lastUpdate = now;
 

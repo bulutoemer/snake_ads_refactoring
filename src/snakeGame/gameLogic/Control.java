@@ -77,7 +77,6 @@ public class Control {
                 break;
             case R:
                 gameFlowService.respawn(snake, group, food, scoreLabel, stage, this);
-//                snake.respawn(group, food, scoreLabel, stage, this);
                 GameLoop.stopGameovermusic();
                 GameLoop.restartIngamemusic();
                 break;
