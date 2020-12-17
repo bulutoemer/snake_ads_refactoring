@@ -5,9 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import snakeGame.GameLoop;
 import snakeGame.gameLogic.CollisionParameterList;
-import snakeGame.gameLogic.Control;
 import snakeGame.gameLogic.GameFlowService;
 import snakeGame.strings.ConstantFields;
 
@@ -63,9 +61,9 @@ public class Snake {
                 logger.log(Level.INFO, "DEAD");
                 gameFlowService.die(this, parameterList.getGroup(), parameterList.getControl(), parameterList.getStage());
                 parameterList.getGameboard().setDeathTouchTail(parameterList.getScore(), parameterList.getGroup(), parameterList.getStage());
-                MusicService.playDeathsound();
-                MusicService.stopIngamemusic();
-                MusicService.restartGameovermusic();
+                MusicService.getInstance().playDeathsound();
+                MusicService.getInstance().stopIngamemusic();
+                MusicService.getInstance().restartGameovermusic();
             }
 
 
@@ -77,9 +75,9 @@ public class Snake {
                 head.getLayoutY() <= 0 || head.getLayoutY() >= parameterList.getStage().getHeight() - ConstantFields.BORDER_HEIGHT_BOUND) {
             gameFlowService.die(this, parameterList.getGroup(), parameterList.getControl(), parameterList.getStage());
             parameterList.getGameboard().setDeathTouchWall(parameterList.getScore(), parameterList.getGroup(), parameterList.getStage());
-            MusicService.playDeathsound();
-            MusicService.stopIngamemusic();
-            MusicService.restartGameovermusic();
+            MusicService.getInstance().playDeathsound();
+            MusicService.getInstance().stopIngamemusic();
+            MusicService.getInstance().restartGameovermusic();
         }
     }
 
@@ -87,7 +85,7 @@ public class Snake {
         if (headBox.intersects(parameterList.getFoodBound())) {
             gameFlowService.eat(this, parameterList.getGroup(), parameterList.getScore(), parameterList.getFood());
             parameterList.getFood().setFood(parameterList.getGroup(), parameterList.getStage());
-            MusicService.playEatsound();
+            MusicService.getInstance().playEatsound();
         }
     }
 

@@ -68,7 +68,7 @@ public class GameLoop extends Application {
         primaryStage.show();
         splashPlayer.play();
 
-        MusicService.playIngameMusicIndefinitely();
+        MusicService.getInstance().playIngameMusicIndefinitely();
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -103,7 +103,7 @@ public class GameLoop extends Application {
                 primaryStage.setScene(scene);
                 fadeBlackToTransparentTransition(primaryStage).play();
                 timer.start();
-                MusicService.restartIngamemusic();
+                MusicService.getInstance().restartIngamemusic();
             }
         });
     }
