@@ -1,4 +1,4 @@
-package sample;
+package snakeGame.userInterface;
 
 
 import javafx.scene.Group;
@@ -6,10 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import snakeGame.strings.ConstantFields;
 
 import java.util.Random;
 
-//Labels
 public class Gameboard {
     String[] touchWall = new String[9];
     String[] touchTail = new String[6];
@@ -40,28 +40,27 @@ public class Gameboard {
     }
 
 
-    public void setDeathTouchWall(Score score, Group group, Stage stage) {
+    public void setDeathTouchWall(ScoreLabel scoreLabel, Group group, Stage stage) {
         Label deathTouchWall = new Label(stringsTouchWall()[rand.nextInt(9)]
-                + "\nPress R for respawn" + "\nScore: " + score.getScore());
-        deathTouchWall.setFont(new Font("Calibri",80));
+                + "\nPress R for respawn" + "\nScore: " + scoreLabel.getScore());
+        deathTouchWall.setFont(new Font(ConstantFields.FONT_NAME_GAMEBOARD, ConstantFields.FONT_SIZE_GAMEBOARD));
         deathTouchWall.setTextFill(Color.BLACK);
 
         group.getChildren().clear();
-        deathTouchWall.relocate(200, stage.getHeight()/2-300);
+        deathTouchWall.relocate(ConstantFields.RELOCATION_TARGET_X, stage.getHeight()/2-300);
         group.getChildren().add(deathTouchWall);
 
     }
 
-    public void setDeathTouchTail(Score score, Group group, Stage stage) {
+    public void setDeathTouchTail(ScoreLabel scoreLabel, Group group, Stage stage) {
         Label deathTouchTail = new Label(stringsTouchTail()[rand.nextInt(6)] + "\nPress R for respawn"
-                +"\nScore: " + score.getScore());
-        deathTouchTail.setFont(new Font("Calibri",80));
+                +"\nScore: " + scoreLabel.getScore());
+        deathTouchTail.setFont(new Font(ConstantFields.FONT_NAME_GAMEBOARD, ConstantFields.FONT_SIZE_GAMEBOARD));
         deathTouchTail.setTextFill(Color.BLACK);
 
         group.getChildren().clear();
-        deathTouchTail.relocate(200, stage.getHeight()/2-200);
+        deathTouchTail.relocate(ConstantFields.RELOCATION_TARGET_X, stage.getHeight()/2-200);
         group.getChildren().add(deathTouchTail);
-
     }
 
 }
