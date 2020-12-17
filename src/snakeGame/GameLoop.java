@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import snakeGame.gameLogic.Control;
 import snakeGame.gameLogic.GameFlowService;
+import snakeGame.strings.ConstantFields;
 import snakeGame.strings.MediaFields;
 import snakeGame.userInterface.*;
 
@@ -30,9 +31,9 @@ public class GameLoop extends Application {
     static MediaPlayer eatsoundPlayer = new MediaPlayer(MediaFields.eatsoundMedia);
     static MediaPlayer deathsoundPlayer = new MediaPlayer(MediaFields.deathsoundMedia);
     Group rootGroup = new Group();
-    Pane backgroundPane = new Pane(); //TODO NEU für Background
+    Pane backgroundPane = new Pane();
     Group splashscreen = new Group();
-    //TODO NEU - Background stuff
+
     Image imgSource;
     BackgroundImage backgroundImage;
     Background backgroundView;
@@ -65,7 +66,6 @@ public class GameLoop extends Application {
         deathsoundPlayer.seek(Duration.ZERO);
         deathsoundPlayer.play();
     }
-    //TODO END Background
 
     public static void main(String[] args) {
         launch(args);
@@ -95,9 +95,9 @@ public class GameLoop extends Application {
         backgroundPane.getChildren().add(rootGroup);
 
         blackRectangle = getNewBlackRectangle(primaryStage.getWidth(),primaryStage.getHeight());
-        fadeBlackToTransparent = new FadeTransition(Duration.millis(700), blackRectangle);
-        fadeBlackToTransparent.setFromValue(1.0);
-        fadeBlackToTransparent.setToValue(0.0);
+        fadeBlackToTransparent = new FadeTransition(Duration.millis(ConstantFields.DURATION_MILLIS), blackRectangle);
+        fadeBlackToTransparent.setFromValue(ConstantFields.TRANSPARENT_FROM_VALUE);
+        fadeBlackToTransparent.setToValue(ConstantFields.TRANSPARENT_TO_VALUE);
         rootGroup.getChildren().add(blackRectangle);
 
         intro = new Scene(splashscreen, primaryStage.getWidth(), primaryStage.getHeight());
@@ -153,10 +153,10 @@ public class GameLoop extends Application {
     }
 
     private void setSplashViewProperties() {
-        splashView.setFitHeight(500);
-        splashView.setFitWidth(1000);
-        splashView.setX(400);
-        splashView.setY(100);
+        splashView.setFitHeight(ConstantFields.SPLASHVIEW_HEIGHT);
+        splashView.setFitWidth(ConstantFields.SPLASHVIEW_WIDTH);
+        splashView.setX(ConstantFields.SPLASHVIEW_X);
+        splashView.setY(ConstantFields.SPLASHVIEW_Y);
     }
 
     private void setBackground() {
@@ -168,11 +168,11 @@ public class GameLoop extends Application {
     }
 
     private void setPrimaryStageProperties(Stage primaryStage) {
-        primaryStage.setWidth(1500);
-        primaryStage.setHeight(700);
+        primaryStage.setWidth(ConstantFields.PRIMARYSTAGE_WIDTH);
+        primaryStage.setHeight(ConstantFields.PRIMARYSTAGE_HEIGHT);
 
-        primaryStage.setMinHeight(50);
-        primaryStage.setMinWidth(50);
+        primaryStage.setMinHeight(ConstantFields.MIN_HEIGHT_WIDTH);
+        primaryStage.setMinWidth(ConstantFields.MIN_HEIGHT_WIDTH);
         primaryStage.setTitle(MediaFields.TITLE);
     }
 
