@@ -10,7 +10,6 @@ import snakeGame.strings.ConstantFields;
 
 import java.util.Random;
 
-//Labels
 public class Gameboard {
     String[] touchWall = new String[9];
     String[] touchTail = new String[6];

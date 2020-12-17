@@ -10,10 +10,11 @@ import java.util.logging.Logger;
 
 //TODO find a way so that we don't have to pass all the parameters
 public class GameFlowService {
+    private static final int DEFAULT_FRAME_DELAY = 25000000; //25-30 mill. is a good value to start
+    private static final int MAX_FRAME_DELAY = 8000000;
     private static GameFlowService instance;
-    private final ScoreService scoreService = ScoreService.getInstance();
-    private long frameDelay = 25000000; //25-30 mill. guter Startwert
-    public long delayDecrease = 600000;  //von speedRefresh abziehen
+    private long frameDelay = DEFAULT_FRAME_DELAY;
+    public long delayDecrease = 600000;
     private static Logger logger = Logger.getLogger(GameFlowService.class.getName());
 
 
@@ -43,13 +44,12 @@ public class GameFlowService {
 
     public void respawn(Snake snake, Group group, Food food, ScoreLabel scoreLabel, Stage stage, Control control) {
         group.getChildren().clear();
-
         snake.respawn(stage);
 
         group.getChildren().add(snake.theSnake.getFirst());
-        food.setFood(group, stage); // setet neues random food und getchilded es
-        scoreLabel.scoreRespawn(group); // respawn Mehtode für Score
-        frameDelay = 25000000; // zurück zum Standardwert
+        food.setFood(group, stage);
+        scoreLabel.scoreRespawn(group);
+        frameDelay = DEFAULT_FRAME_DELAY;
 
         control.stopMovement();
     }
@@ -57,9 +57,9 @@ public class GameFlowService {
     public void eat(Snake snake, Group group, ScoreLabel score, Food food) {
         snake.eat(food);
 
-        group.getChildren().add(snake.theSnake.getLast()); //bringt den tail auf die Szene
+        group.getChildren().add(snake.theSnake.getLast());
         score.upScoreValue();
-        if (frameDelay >= 8000000) { //maximale Grenze sonst wirds zu schnell
+        if (frameDelay >= MAX_FRAME_DELAY) {
             frameDelay -= delayDecrease;
             logger.log(Level.INFO, "The current frameDelay is: {0}", frameDelay);
         }
@@ -67,10 +67,8 @@ public class GameFlowService {
 
     public void die(Snake snake, Group group, Control control, Stage stage) {
         group.getChildren().clear();
-
         snake.snakeDead(stage);
-
-        frameDelay = 25000000; // zurück zum Standardwert
+        frameDelay = DEFAULT_FRAME_DELAY;
         control.stopMovement();
     }
 

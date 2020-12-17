@@ -37,9 +37,9 @@ public class GameLoop extends Application {
     Image imgSource;
     BackgroundImage backgroundImage;
     Background backgroundView;
-    private long lastUpdate = 0; //für Geschwindigkeitssteuerung
+    private long lastUpdate = 0;
 
-    public static void restartIngamemusic() { //Startet Ingame Musik von vorne
+    public static void restartIngamemusic() {
         ingamemusicPlayer.seek(Duration.ZERO);
         ingamemusicPlayer.play();
     }
@@ -76,7 +76,7 @@ public class GameLoop extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         AnimationTimer timer;
-        int offset = 21;
+        int speedOffset = 21;
         Food food = new Food();
         Gameboard gameboard = new Gameboard();
         Control control = new Control();
@@ -88,9 +88,9 @@ public class GameLoop extends Application {
 
         setPrimaryStageProperties(primaryStage);
         setBackground();
-        Snake snake = new Snake(rootGroup, primaryStage); //erstellt neues Snake Listen Objekt und getChilded es
+        Snake snake = new Snake(rootGroup, primaryStage);
 
-        food.setFood(rootGroup, primaryStage);//setzt ein neues Food random ab
+        food.setFood(rootGroup, primaryStage);
         scene = new Scene(backgroundPane, primaryStage.getWidth(), primaryStage.getHeight(), Color.DARKGREEN);
         backgroundPane.getChildren().add(rootGroup);
 
@@ -111,10 +111,10 @@ public class GameLoop extends Application {
 
         ingamemusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {//Keyeventhandler fragt ab obs ein Keyevent gibt
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                control.keyHandler(keyEvent, snake, rootGroup, food, scoreLabel, primaryStage);//control nimmt Keyevent und schaut speziell nach WASD
+                control.keyHandler(keyEvent, snake, rootGroup, food, scoreLabel, primaryStage);
 
             }
         });
@@ -129,10 +129,10 @@ public class GameLoop extends Application {
 
                     snake.collision(food, rootGroup, food.getBound(), scoreLabel, control, primaryStage, gameboard);
 
-                    if (control.getGoUp()) dy += -offset; //offset="speed"
-                    else if (control.getGoDown()) dy += offset;
-                    else if (control.getGoRight()) dx += offset;
-                    else if (control.getGoLeft()) dx += -offset;
+                    if (control.getGoUp()) dy += -speedOffset;
+                    else if (control.getGoDown()) dy += speedOffset;
+                    else if (control.getGoRight()) dx += speedOffset;
+                    else if (control.getGoLeft()) dx += -speedOffset;
                     snake.moveSnake(dx, dy);
 
                     lastUpdate = now;
@@ -145,7 +145,7 @@ public class GameLoop extends Application {
             public void run() {
                 primaryStage.setScene(scene);
                 fadeBlackToTransparent.play();
-                timer.start(); //Animationtimer startet nun erst nach dem Fade out des Hundevideos
+                timer.start();
                 restartIngamemusic();
             }
         });

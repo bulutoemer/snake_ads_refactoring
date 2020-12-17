@@ -34,29 +34,28 @@ public class Snake {
     }
 
     public void snakeDead(Stage stage) {
-        //Last Minute - wird gebraucht um Score nicht zu früh zu löschen (überlegung nur respawn zu verwenden mit dieser implementierung fehlgeschlagen)
         theSnake.clear();
         theSnake.add(head);
         theSnake.getFirst().relocate(stage.getWidth() / 2, stage.getHeight() / 2);
     }
 
 
-    public void eat(Food food) {//added ein tail rectangle, übernimmt color von food,erhöht score um 1, macht schneller
+    public void eat(Food food) {
         theSnake.add(new Rectangle(ConstantFields.RECTANGLE_HEIGHT_WIDTH, ConstantFields.RECTANGLE_HEIGHT_WIDTH));
-        theSnake.getLast().setFill(Color.color(food.getColor()[0], food.getColor()[1], food.getColor()[2])); //holt sich aus deathsoundMedia GameObject die Color von Food für sein Tail
+        theSnake.getLast().setFill(Color.color(food.getColor()[0], food.getColor()[1], food.getColor()[2]));
     }
 
     //TODO move collision into GameFlowService
-    public void collision(Food food, Group group, Bounds foodBound, ScoreLabel score, Control control, Stage stage, Gameboard gameboard) { //gameobject sind obstacles so wie Food, Boundarys für Collisions
-        Bounds headBox = head.getBoundsInParent(); // erstellt eine Boundary um den Snakekopf
+    public void collision(Food food, Group group, Bounds foodBound, ScoreLabel score, Control control, Stage stage, Gameboard gameboard) {
+        Bounds headBox = head.getBoundsInParent();
 
-        if (headBox.intersects(foodBound)) {//überprüfung Collision Head mit Food Boundary
+        if (headBox.intersects(foodBound)) {
             gameFlowService.eat(this, group, score, food);
             food.setFood(group, stage);
             GameLoop.playEatsound();
         }
 
-        if (head.getLayoutX() <= 0 || head.getLayoutX() >= stage.getWidth() - ConstantFields.BORDER_WIDTH_BOUND || // Überprüfung ob Head den Rand trifft
+        if (head.getLayoutX() <= 0 || head.getLayoutX() >= stage.getWidth() - ConstantFields.BORDER_WIDTH_BOUND ||
                 head.getLayoutY() <= 0 || head.getLayoutY() >= stage.getHeight() - ConstantFields.BORDER_HEIGHT_BOUND) {
             gameFlowService.die(this, group, control, stage);
             gameboard.setDeathTouchWall(score, group, stage);
@@ -66,7 +65,7 @@ public class Snake {
         }
 
 
-        for (int i = 1; i < this.theSnake.size(); i++) { //Überprüfung Snake beisst sich in den oasch
+        for (int i = 1; i < this.theSnake.size(); i++) {
             if (headBox.intersects(this.theSnake.get(i).getBoundsInParent())) {
                 logger.log(Level.INFO, "DEAD");
                 gameFlowService.die(this, group, control, stage);
@@ -81,9 +80,9 @@ public class Snake {
     }
 
 
-    public void moveSnake(int dx, int dy) { //dx bzw dy ist jeweils + oder - speed, war zuvor 5
+    public void moveSnake(int dx, int dy) {
 
-        if (dx != 0 || dy != 0) { //gibt es überhaupt dx/dy werte (wenn wir stehen z.B. nicht)
+        if (dx != 0 || dy != 0) {
             LinkedList<Rectangle> snakehelp = new LinkedList<>();
 
             for (int i = 0; i < theSnake.size(); i++) {
@@ -95,7 +94,7 @@ public class Snake {
 
             int x = (int) theSnake.getFirst().getLayoutX() + dx;
             int y = (int) theSnake.getFirst().getLayoutY() + dy;
-            theSnake.getFirst().relocate(x, y);//moved erstmal nur den Kopf
+            theSnake.getFirst().relocate(x, y);
 
 
             for (int i = 1; i < theSnake.size(); i++) {
