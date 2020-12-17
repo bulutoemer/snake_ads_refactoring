@@ -17,33 +17,33 @@ import java.util.logging.Logger;
 public class Snake {
     private final GameFlowService gameFlowService = GameFlowService.getInstance();
     private Rectangle head = new Rectangle(ConstantFields.RECTANGLE_HEIGHT_WIDTH, ConstantFields.RECTANGLE_HEIGHT_WIDTH); // hier Initialisiert, weil in mehreren Methoden
-    public LinkedList<Rectangle> snake = new LinkedList<>(); //TODO handle this Snake.snake differently
+    public LinkedList<Rectangle> theSnake = new LinkedList<>(); //TODO handle this Snake.snake differently
     private static Logger logger = Logger.getLogger(Snake.class.getName());
 
     public Snake(Group group, Stage stage) {
-        snake.add(head);
-        snake.getFirst().relocate(stage.getWidth() / 2, stage.getHeight() / 2);
-        group.getChildren().add(snake.getFirst());
+        theSnake.add(head);
+        theSnake.getFirst().relocate(stage.getWidth() / 2, stage.getHeight() / 2);
+        group.getChildren().add(theSnake.getFirst());
 
     }
 
     public void respawn(Stage stage) {
-        snake.clear();
-        snake.add(head);
-        snake.getFirst().relocate(stage.getWidth() / 2, stage.getHeight() / 2);
+        theSnake.clear();
+        theSnake.add(head);
+        theSnake.getFirst().relocate(stage.getWidth() / 2, stage.getHeight() / 2);
     }
 
     public void snakeDead(Stage stage) {
         //Last Minute - wird gebraucht um Score nicht zu früh zu löschen (überlegung nur respawn zu verwenden mit dieser implementierung fehlgeschlagen)
-        snake.clear();
-        snake.add(head);
-        snake.getFirst().relocate(stage.getWidth() / 2, stage.getHeight() / 2);
+        theSnake.clear();
+        theSnake.add(head);
+        theSnake.getFirst().relocate(stage.getWidth() / 2, stage.getHeight() / 2);
     }
 
 
     public void eat(Food food) {//added ein tail rectangle, übernimmt color von food,erhöht score um 1, macht schneller
-        snake.add(new Rectangle(ConstantFields.RECTANGLE_HEIGHT_WIDTH, ConstantFields.RECTANGLE_HEIGHT_WIDTH));
-        snake.getLast().setFill(Color.color(food.getColor()[0], food.getColor()[1], food.getColor()[2])); //holt sich aus deathsoundMedia GameObject die Color von Food für sein Tail
+        theSnake.add(new Rectangle(ConstantFields.RECTANGLE_HEIGHT_WIDTH, ConstantFields.RECTANGLE_HEIGHT_WIDTH));
+        theSnake.getLast().setFill(Color.color(food.getColor()[0], food.getColor()[1], food.getColor()[2])); //holt sich aus deathsoundMedia GameObject die Color von Food für sein Tail
     }
 
     //TODO move collision into GameFlowService
@@ -66,8 +66,8 @@ public class Snake {
         }
 
 
-        for (int i = 1; i < this.snake.size(); i++) { //Überprüfung Snake beisst sich in den oasch
-            if (headBox.intersects(this.snake.get(i).getBoundsInParent())) {
+        for (int i = 1; i < this.theSnake.size(); i++) { //Überprüfung Snake beisst sich in den oasch
+            if (headBox.intersects(this.theSnake.get(i).getBoundsInParent())) {
                 logger.log(Level.INFO, "DEAD");
                 gameFlowService.die(this, group, control, stage);
                 gameboard.setDeathTouchTail(score, group, stage);
@@ -81,28 +81,28 @@ public class Snake {
     }
 
 
-    public void moveSnake(int dx, int dy, Stage stage) { //dx bzw dy ist jeweils + oder - speed, war zuvor 5
+    public void moveSnake(int dx, int dy) { //dx bzw dy ist jeweils + oder - speed, war zuvor 5
 
         if (dx != 0 || dy != 0) { //gibt es überhaupt dx/dy werte (wenn wir stehen z.B. nicht)
             LinkedList<Rectangle> snakehelp = new LinkedList<>();
 
-            for (int i = 0; i < snake.size(); i++) {
+            for (int i = 0; i < theSnake.size(); i++) {
 
                 snakehelp.add(new Rectangle());
 
-                snakehelp.get(i).relocate(snake.get(i).getLayoutX(), snake.get(i).getLayoutY());
+                snakehelp.get(i).relocate(theSnake.get(i).getLayoutX(), theSnake.get(i).getLayoutY());
             }
 
-            int x = (int) snake.getFirst().getLayoutX() + dx;
-            int y = (int) snake.getFirst().getLayoutY() + dy;
-            snake.getFirst().relocate(x, y);//moved erstmal nur den Kopf
+            int x = (int) theSnake.getFirst().getLayoutX() + dx;
+            int y = (int) theSnake.getFirst().getLayoutY() + dy;
+            theSnake.getFirst().relocate(x, y);//moved erstmal nur den Kopf
 
 
-            for (int i = 1; i < snake.size(); i++) {
+            for (int i = 1; i < theSnake.size(); i++) {
 
                 int helpX = (int) snakehelp.get(i - 1).getLayoutX();
                 int helpY = (int) snakehelp.get(i - 1).getLayoutY();
-                snake.get(i).relocate(helpX, helpY);
+                theSnake.get(i).relocate(helpX, helpY);
             }
         }
     }
