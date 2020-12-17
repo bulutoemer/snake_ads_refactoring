@@ -2,6 +2,7 @@ package snakeGame.gameLogic;
 
 import javafx.scene.Group;
 import javafx.stage.Stage;
+import snakeGame.GameLoop;
 import snakeGame.userInterface.*;
 
 import java.util.logging.Level;
@@ -32,6 +33,12 @@ public class GameFlowService {
 
     public void setFrameDelay(long frameDelay) {
         this.frameDelay = frameDelay;
+    }
+
+    public void restartGame(Snake snake,Group group,Food food,ScoreLabel scoreLabel,Stage stage,Control control) {
+        respawn(snake, group, food, scoreLabel, stage, control);
+        GameLoop.stopGameovermusic();
+        GameLoop.restartIngamemusic();
     }
 
     public void respawn(Snake snake, Group group, Food food, ScoreLabel scoreLabel, Stage stage, Control control) {
