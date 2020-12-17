@@ -129,10 +129,10 @@ public class GameLoop extends Application {
 
                     snake.collision(food, rootGroup, food.getBound(), scoreLabel, control, primaryStage, gameboard);
 
-                    if (control.getgoUp()) dy += -offset; //offset="speed"
-                    else if (control.getgoDown()) dy += offset;
-                    else if (control.getgoRight()) dx += offset;
-                    else if (control.getgoLeft()) dx += -offset;
+                    if (control.getGoUp()) dy += -offset; //offset="speed"
+                    else if (control.getGoDown()) dy += offset;
+                    else if (control.getGoRight()) dx += offset;
+                    else if (control.getGoLeft()) dx += -offset;
                     snake.moveSnake(dx, dy);
 
                     lastUpdate = now;

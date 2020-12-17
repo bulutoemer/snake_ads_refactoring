@@ -19,19 +19,19 @@ public class Control {
         goLeft = false;
     }
 
-    public boolean getgoUp() {
+    public boolean getGoUp() {
         return goUp;
     }
 
-    public boolean getgoDown() {
+    public boolean getGoDown() {
         return goDown;
     }
 
-    public boolean getgoLeft() {
+    public boolean getGoLeft() {
         return goLeft;
     }
 
-    public boolean getgoRight() {
+    public boolean getGoRight() {
         return goRight;
     }
 
