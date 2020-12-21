@@ -19,3 +19,6 @@ https://gluonhq.com/products/javafx/
 
 4. Run -> Edit Configurations... and add these VM options:
 --module-path ${PATH_TO_FX} --add-modules=javafx.controls,javafx.media,javafx.fxml
+
+5. Set resources folder as a Resource.
+(IntelliJ) Go to File -> Project Structure -> Modules and choice the project, in right side click on resources folder, mark directory as a resources root (there are some icon where shows with "Marks as:". 
